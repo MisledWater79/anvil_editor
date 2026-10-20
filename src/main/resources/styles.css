@@ -1,0 +1,94 @@
+/* Default text color for the entire app */
+.root {
+    -fx-text-fill: #000000;
+}
+
+/* Default text color for labels */
+.label {
+    -fx-text-fill: #000000;
+}
+
+/* Default text color for buttons */
+.button {
+    -fx-text-fill: #000000;
+}
+
+/* List and tree controls */
+.list-cell, .tree-cell {
+    -fx-text-fill: #000000;
+}
+
+/* Table controls */
+.table-cell {
+    -fx-text-fill: #000000;
+}
+
+/* Menu controls */
+.menu, .menu-item, .context-menu {
+    -fx-text-fill: #000000;
+}
+
+/* Editor options section */
+.editor-options {
+    background-color: #95e2a8;
+    -fx-background-color: #95e2a8;
+}
+
+/* Chunk viewer section */
+.chunk-viewer {
+    background-color: #95b6e2;
+    font-family: "Minecraft Default";
+    font-size: 16px;
+    -fx-background-color: #95b6e2;
+    -fx-font-family: "Minecraft Default";
+    -fx-font-size: 16px;
+}
+
+/* NBT tree viewer section */
+/* NBT tree panel */
+.nbt-tree-view {
+    background-color: #d395e2;
+    -fx-background-color: #d395e2;
+}
+
+/* NBT tree content area, below the title */
+.nbt-tree .tree-cell {
+    background-color: #e4b2f1;
+    font-family: "Minecraft Default";
+    font-size: 16px;
+    -fx-background-color: #e4b2f1;
+    -fx-background-insets: 0;
+    -fx-control-inner-background: #e4b2f1;
+    -fx-font-family: "Minecraft Default";
+    -fx-font-size: 16px;
+}
+
+/* Selected row */
+.nbt-tree .tree-cell:selected {
+    background-color: #6b3a70;
+    -fx-background-color: #6b3a70;
+    -fx-text-fill: #ffffff;
+}
+
+/* Labels inside each row (NBT name, type, and value) */
+.nbt-tree .tree-cell .label {
+    -fx-text-fill: #000000;
+}
+
+/* Labels inside a selected row */
+.nbt-tree .tree-cell:selected .label {
+    -fx-text-fill: #ffffff;
+}
+
+/* Style the editor option buttons */
+.option-button {
+    font-family: "Minecraft Default";
+    font-size: 20px;
+    -fx-font-family: "Minecraft Default";
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000;
+}
+
+.nbt-tree {
+    -fx-fixed-cell-size: 24px;
+}

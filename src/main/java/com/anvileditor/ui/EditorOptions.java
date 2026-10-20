@@ -17,6 +17,9 @@ public class EditorOptions extends BorderPane {
      * Open, save, and backup options
      */
     public EditorOptions() {
+        // Apply the  styling to the options section
+        getStyleClass().add("editor-options");
+
         // Grid to arrange the buttons
         GridPane buttonOptions = new GridPane();
         buttonOptions.setAlignment(Pos.CENTER);
@@ -29,12 +32,17 @@ public class EditorOptions extends BorderPane {
         Button saveWorld = new Button("Save");
         Button backupWorld = new Button("Backup");
 
+        // Apply the fonts to the buttons
+        openWorld.getStyleClass().add("option-button");
+        saveWorld.getStyleClass().add("option-button");
+        backupWorld.getStyleClass().add("option-button");
+
         // Add buttons to the grid
         buttonOptions.add(openWorld, 0, 0);
         buttonOptions.add(saveWorld, 1, 0);
         buttonOptions.add(backupWorld, 2, 0);
 
-        // Use the grid as the main content of this component
+        // Use the grid as the main content of this component to center the buttons
         setCenter(buttonOptions);
     }
 }

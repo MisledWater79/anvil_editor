@@ -8,6 +8,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -21,9 +22,12 @@ public class ChunkViewer extends BorderPane {
     private final Label selectedChunkLabel = new Label("Selected Chunk: [1,0]");
 
     /**
-     * Upper half of the editor interface
+     * Upper "half" of the editor interface
      */
     public ChunkViewer() {
+        // Apply the styling to the chunk viewer section
+        getStyleClass().add("chunk-viewer");
+
         // Grid to arrange the world tree and chunk map side by side
         GridPane chunkViewer = new GridPane();
         chunkViewer.setHgap(10);
@@ -118,6 +122,9 @@ public class ChunkViewer extends BorderPane {
         VBox panel = new VBox(8, worldTitle, worldTree);
         panel.setPadding(new Insets(5));
         panel.setPrefWidth(200);
+
+        VBox.setVgrow(worldTree, Priority.ALWAYS);
+        worldTree.setMaxHeight(Double.MAX_VALUE);
 
         return panel;
     }

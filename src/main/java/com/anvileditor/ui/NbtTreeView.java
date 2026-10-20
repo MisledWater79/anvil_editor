@@ -19,7 +19,13 @@ public class NbtTreeView extends BorderPane {
 
     private final TreeView<NbtTreeNode> treeView;
 
+    /**
+     * Lower "half" of the editor interface
+     */
     public NbtTreeView() {
+        // Apply the styling to the NBT tree view section
+        getStyleClass().add("nbt-tree-view");
+
         // Create the root tag for the tree
         TreeItem<NbtTreeNode> root =
                 new TreeItem<>(new NbtTreeNode("NBT Data", "ROOT", null));
@@ -73,9 +79,10 @@ public class NbtTreeView extends BorderPane {
                 type.setPrefWidth(100);
                 value.setMaxWidth(Double.MAX_VALUE);
 
-                HBox row = new HBox(12, name, type, value);
+                // Create a compact row for each NBT tag
+                HBox row = new HBox(8, name, type, value);
                 HBox.setHgrow(value, Priority.ALWAYS);
-                row.setPadding(new Insets(2, 4, 2, 4));
+                row.setPadding(new Insets(0, 4, 0, 4));
 
                 setText(null);
                 setGraphic(row);
@@ -90,11 +97,13 @@ public class NbtTreeView extends BorderPane {
 
         // Add the panel title and tree to the layout
         Label title = new Label("NBT Data");
-        title.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        title.setStyle("-fx-font-family: \"Minecraft Default\"; -fx-font-size: 18px; -fx-font-weight: bold; -fx-underline: true;");
         title.setPadding(new Insets(8));
 
         setTop(title);
         setCenter(treeView);
+
+        treeView.getStyleClass().add("nbt-tree");
     }
 
     public TreeView<NbtTreeNode> getTreeView() {

@@ -2,9 +2,13 @@ package com.anvileditor;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+
+import java.io.InputStream;
 
 import com.anvileditor.ui.ChunkViewer;
 import com.anvileditor.ui.EditorOptions;
@@ -16,12 +20,22 @@ public class AnvilEditorApp extends Application {
     // Initializes and displays the application's main window
     @Override
     public void start(Stage stage) {
-        // Load the application icon from the resources folder
+        // Load the app icon from the resources folder
         var iconStream = getClass().getResourceAsStream("/com/anvileditor/ui/anvileditoricon.png");
 
-        // Set the application window icon if the image exists
+        // Set the app window icon if the image exists
         if (iconStream != null) {
             stage.getIcons().add(new Image(iconStream));
+        }
+
+        // Load the Minecraft font from resources
+        try (InputStream fontStream = getClass().getResourceAsStream("/fonts/MinecraftDefault-Regular.ttf")) {
+            if (fontStream != null) {
+                @SuppressWarnings("unused")
+                Font minecraftFont = Font.loadFont(fontStream, 20);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         /* 
@@ -30,9 +44,17 @@ public class AnvilEditorApp extends Application {
          * and the NBT tree viewer is on the lower "half"
          */
         VBox mainLayout = new VBox(new EditorOptions(), new ChunkViewer(), new NbtTreeView());
+        VBox.setVgrow(mainLayout.getChildren().get(2), Priority.ALWAYS);
 
         // The window size is 650x620 pixels
-        Scene scene = new Scene(mainLayout, 650, 620);
+        Scene scene = new Scene(mainLayout, 680, 620);
+
+        // Load the app's stylesheet
+        var css = getClass().getResource("/styles.css");
+
+        if (css != null) {
+            scene.getStylesheets().add(css.toExternalForm());
+        }
 
         // Configure the title and window
         stage.setTitle("Anvil Editor");
