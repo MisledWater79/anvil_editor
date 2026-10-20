@@ -59,7 +59,7 @@ public class ChunkViewer extends BorderPane {
         setCenter(chunkViewer);
 
         // Display the selected chunk information underneath the grid
-        selectedChunkLabel.setPadding(new Insets(8, 10, 8, 10));
+        selectedChunkLabel.setPadding(new Insets(4, 10, 16, 10));
         setBottom(selectedChunkLabel);
     }
 
@@ -68,6 +68,7 @@ public class ChunkViewer extends BorderPane {
      */
     private VBox createWorldPanel() {
         Label worldTitle = new Label("World");
+        worldTitle.setStyle("-fx-font-size: 17px; -fx-underline: true;");
 
         // Hierarchy of dimensions and chunk coordinates
         TreeItem<String> root = new TreeItem<>("World");
@@ -134,6 +135,7 @@ public class ChunkViewer extends BorderPane {
      */
     private VBox createChunkMapPanel() {
         Label mapTitle = new Label("Chunk Map");
+        mapTitle.setStyle("-fx-font-size: 17px; -fx-underline: true;");
 
         GridPane chunkMap = new GridPane();
         chunkMap.setHgap(2);
