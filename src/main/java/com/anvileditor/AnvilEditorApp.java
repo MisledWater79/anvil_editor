@@ -11,8 +11,10 @@ import javafx.scene.image.Image;
 import java.io.InputStream;
 
 import com.anvileditor.ui.ChunkViewer;
+import com.anvileditor.ui.EditorController;
 import com.anvileditor.ui.EditorOptions;
 import com.anvileditor.ui.NbtTreeView;
+import com.anvileditor.ui.StatusBar;
 
 // Main entry point for the Anvil Editor JavaFX application
 public class AnvilEditorApp extends Application {
@@ -43,11 +45,23 @@ public class AnvilEditorApp extends Application {
          * the chunk viewer is on the upper "half" of the window,
          * and the NBT tree viewer is on the lower "half"
          */
-        VBox mainLayout = new VBox(new EditorOptions(), new ChunkViewer(), new NbtTreeView());
-        VBox.setVgrow(mainLayout.getChildren().get(2), Priority.ALWAYS);
+        EditorOptions editorOptions = new EditorOptions();
+        ChunkViewer chunkViewer = new ChunkViewer();
+        NbtTreeView nbtTreeView = new NbtTreeView();
+        StatusBar statusBar = new StatusBar();
 
-        // The window size is 650x620 pixels
-        Scene scene = new Scene(mainLayout, 680, 620);
+        VBox mainLayout = new VBox(editorOptions, chunkViewer, nbtTreeView);
+        VBox.setVgrow(nbtTreeView, Priority.ALWAYS);
+
+        // The status bar stays usable while the main layout is disabled during background work
+        VBox window = new VBox(mainLayout, statusBar);
+        VBox.setVgrow(mainLayout, Priority.ALWAYS);
+
+        // Connects the buttons, world tree, chunk map and NBT editor to an opened world
+        new EditorController(stage, mainLayout, editorOptions, chunkViewer, nbtTreeView, statusBar);
+
+        // The window size is 900x760 pixels
+        Scene scene = new Scene(window, 900, 760);
 
         // Load the app's stylesheet
         var css = getClass().getResource("/styles.css");
@@ -56,8 +70,7 @@ public class AnvilEditorApp extends Application {
             scene.getStylesheets().add(css.toExternalForm());
         }
 
-        // Configure the title and window
-        stage.setTitle("Anvil Editor");
+        // Configure the window (the controller keeps the title up to date)
         stage.setScene(scene);
 
         // Load the window

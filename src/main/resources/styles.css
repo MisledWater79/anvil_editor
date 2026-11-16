@@ -87,3 +87,14 @@
 .nbt-tree {
     -fx-fixed-cell-size: 24px;
 }
+
+/* Status bar at the bottom of the window */
+.status-bar {
+    -fx-background-color: #7cd191;
+}
+
+/* Chunk map border */
+.chunk-map {
+    -fx-border-color: #4a6f99;
+    -fx-border-width: 1;
+}
