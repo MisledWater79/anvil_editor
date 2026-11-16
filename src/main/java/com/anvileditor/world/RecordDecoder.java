@@ -35,7 +35,8 @@ final class RecordDecoder {
     private static RecordContent decodeNbt(WorldRecord record, byte[] value) {
         try {
             List<NbtDocument> documents = NbtReader.readAll(value);
-            return new RecordContent(record, documents, true, null);
+            String note = documents.isEmpty() ? "This record is empty." : null;
+            return new RecordContent(record, documents, true, note);
         } catch (NbtFormatException e) {
             return binary(record, value, "Could not read this record as NBT (" + e.getMessage()
                     + "), so it is shown read-only.");
