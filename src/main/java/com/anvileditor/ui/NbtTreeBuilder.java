@@ -35,14 +35,62 @@ public final class NbtTreeBuilder {
      * its single child is the document's root compound.
      */
     public static TreeItem<NbtTreeNode> build(NbtDocument document) {
+        return build(List.of(document));
+    }
+
+    /**
+     * Builds the tree for a record holding several root compounds back to
+     * back (block entities, legacy entities...). Each document becomes one
+     * child of the hidden root, in order; documentIndexOf maps an item back.
+     */
+    public static TreeItem<NbtTreeNode> build(List<NbtDocument> documents) {
         TreeItem<NbtTreeNode> root = new TreeItem<>(new NbtTreeNode("NBT Data", ROOT_TYPE, null));
 
-        // A Bedrock root compound normally has an empty name, so show a label instead
-        String rootName = document.getRootName().isEmpty() ? "(root)" : document.getRootName();
-        root.getChildren().add(createItem(rootName, document.getRoot()));
+        for (int i = 0; i < documents.size(); i++) {
+            NbtDocument document = documents.get(i);
+            TreeItem<NbtTreeNode> item = createItem(rootLabel(document, i, documents.size()), document.getRoot());
+            // Collapse long multi-root records so they read as a list
+            item.setExpanded(documents.size() == 1);
+            root.getChildren().add(item);
+        }
 
         root.setExpanded(true);
         return root;
+    }
+
+    /**
+     * A Bedrock root compound normally has an empty name, so show a label
+     * instead: the record's "id"/"identifier" when it has one.
+     */
+    private static String rootLabel(NbtDocument document, int index, int count) {
+        if (!document.getRootName().isEmpty()) {
+            return document.getRootName();
+        }
+        String id = null;
+        if (document.getRoot().get("identifier") instanceof Tag.StringTag s) {
+            id = s.getValue();
+        } else if (document.getRoot().get("id") instanceof Tag.StringTag s) {
+            id = s.getValue();
+        }
+        if (count == 1) {
+            return id == null ? "(root)" : "(root) " + id;
+        }
+        return "#" + index + (id == null ? "" : " " + id);
+    }
+
+    /**
+     * Index of the document an item belongs to (0 for single-document trees).
+     * Returns -1 for the hidden root itself.
+     */
+    public static int documentIndexOf(TreeItem<NbtTreeNode> item) {
+        TreeItem<NbtTreeNode> current = item;
+        if (current.getParent() == null) {
+            return -1;
+        }
+        while (current.getParent().getParent() != null) {
+            current = current.getParent();
+        }
+        return current.getParent().getChildren().indexOf(current);
     }
 
     /**
