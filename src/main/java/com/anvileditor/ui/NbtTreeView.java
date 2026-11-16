@@ -1,5 +1,7 @@
 package com.anvileditor.ui;
 
+import com.anvileditor.nbt.NbtDocument;
+
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
@@ -108,5 +110,13 @@ public class NbtTreeView extends BorderPane {
 
     public TreeView<NbtTreeNode> getTreeView() {
         return treeView;
+    }
+
+    /**
+     * Replaces the displayed tree with the contents of an NBT document
+     * (for example one read from a LevelDB record or level.dat)
+     */
+    public void showDocument(NbtDocument document) {
+        treeView.setRoot(NbtTreeBuilder.build(document));
     }
 }
