@@ -13,6 +13,11 @@ import javafx.scene.layout.GridPane;
  * save it, or create a backup of it.
  */
 public class EditorOptions extends BorderPane {
+
+    private final Button openWorld = new Button("Open World");
+    private final Button saveWorld = new Button("Save");
+    private final Button backupWorld = new Button("Backup");
+
     /**
      * Open, save, and backup options
      */
@@ -27,15 +32,14 @@ public class EditorOptions extends BorderPane {
         buttonOptions.setVgap(10);
         buttonOptions.setPadding(new Insets(10));
 
-        // Button options
-        Button openWorld = new Button("Open World");
-        Button saveWorld = new Button("Save");
-        Button backupWorld = new Button("Backup");
-
         // Apply the fonts to the buttons
         openWorld.getStyleClass().add("option-button");
         saveWorld.getStyleClass().add("option-button");
         backupWorld.getStyleClass().add("option-button");
+
+        // Nothing to save or back up until a world is open
+        saveWorld.setDisable(true);
+        backupWorld.setDisable(true);
 
         // Add buttons to the grid
         buttonOptions.add(openWorld, 0, 0);
@@ -44,5 +48,26 @@ public class EditorOptions extends BorderPane {
 
         // Use the grid as the main content of this component to center the buttons
         setCenter(buttonOptions);
+    }
+
+    public void setOnOpen(Runnable action) {
+        openWorld.setOnAction(e -> action.run());
+    }
+
+    public void setOnSave(Runnable action) {
+        saveWorld.setOnAction(e -> action.run());
+    }
+
+    public void setOnBackup(Runnable action) {
+        backupWorld.setOnAction(e -> action.run());
+    }
+
+    /** Save is only useful when there are unsaved changes */
+    public void setSaveEnabled(boolean enabled) {
+        saveWorld.setDisable(!enabled);
+    }
+
+    public void setBackupEnabled(boolean enabled) {
+        backupWorld.setDisable(!enabled);
     }
 }
