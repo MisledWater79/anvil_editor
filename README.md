@@ -14,12 +14,12 @@ Anvil Editor aims to provide a user-friendly interface for browsing world record
 
 Currently in development. What works today:
 
-- **Open World** – choose a world folder from `minecraftWorlds` (the folder holding `level.dat` and `db`). Anvil Editor reads the world's LevelDB database with its own pure-Java LevelDB reader, so no native libraries are needed.
-- **World tree** – `level.dat`, each dimension's chunks, and other world records (players, maps, scoreboard...). Expand a chunk to see its records: block entities, entities, sub-chunks, pending ticks, and more.
-- **Chunk map** – a top-down map of the saved chunks in each dimension. Drag to move, scroll to zoom, click a chunk to open it.
-- **NBT editor** – right-click a tag to edit its value, add a tag or list element, or delete it (double-click / Enter edits, Delete removes). Invalid values are rejected before anything changes. Sub-chunks and other binary records are shown read-only.
-- **Save** – writes your changes as a new LevelDB log file without modifying the world's existing files; Minecraft applies them the next time the world loads. `level.dat` is replaced safely, with the previous version kept as `level.dat_old`. Saving is blocked while the world is open in Minecraft.
-- **Backup** – saves the world as a `.mcworld` file that Minecraft can import.
+- **Open World** - choose a world folder from `minecraftWorlds` (the folder holding `level.dat` and `db`). Anvil Editor reads the world's LevelDB database with its own Java LevelDB reader, so no native libraries are needed.
+- **World tree** - `level.dat`, each dimension's chunks, and other world records (players, maps, scoreboards, etc.). Expand a chunk to see its records: block entities, entities, sub-chunks, pending ticks, and more.
+- **Chunk map** - a top-down map of the saved chunks in each dimension. Drag to move, scroll to zoom, click a chunk to open it.
+- **NBT editor** - right-click a tag to edit its value, add a tag or list element, or delete it (double-click / Enter edits, Delete removes). Invalid values are rejected before anything changes. Sub-chunks and other binary records are shown read only.
+- **Save** - writes your changes as a new LevelDB log file without modifying the world's existing files. Minecraft applies them the next time the world loads. `level.dat` is replaced safely, with the previous version kept as `level.dat_old`. Saving is blocked while the world is open in Minecraft.
+- **Backup** - saves the world as a `.mcworld` (fancy `.zip`) file that Minecraft can import.
 
 > **Always back up a world before editing it**, and close the world in Minecraft first.
 
