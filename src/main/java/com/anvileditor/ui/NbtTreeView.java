@@ -66,7 +66,6 @@ public class NbtTreeView extends BorderPane {
         treeView = new TreeView<>(emptyRoot());
         treeView.setShowRoot(false);
         treeView.setCellFactory(tree -> new NbtCell());
-        treeView.setPlaceholder(new Label("Open a world, then select a record to see its NBT data."));
         treeView.getStyleClass().add("nbt-tree");
 
         treeView.setOnMouseClicked(event -> {
@@ -93,6 +92,7 @@ public class NbtTreeView extends BorderPane {
 
         setTop(header);
         setCenter(treeView);
+        setTitle("NBT Data", "Open a world, then select a record to see its NBT data.");
     }
 
     public TreeView<NbtTreeNode> getTreeView() {

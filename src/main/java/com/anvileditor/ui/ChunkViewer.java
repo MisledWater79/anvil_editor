@@ -111,7 +111,6 @@ public class ChunkViewer extends BorderPane {
         worldTitle.setStyle("-fx-font-size: 17px; -fx-underline: true;");
 
         worldTree.setShowRoot(false);
-        worldTree.setPlaceholder(new Label("Press Open World"));
         worldTree.setCellFactory(tree -> new TreeCell<>() {
             @Override
             protected void updateItem(Object value, boolean empty) {
